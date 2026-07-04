@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atrix — Turning Attention Into Growth</title>
+<meta name="description" content="Atrix builds social media systems that put your business in front of the right people — content, cadence and strategy crafted around how your audience actually buys.">
+<style>
+  :root {
+    --bg: #0a0d12;
+    --panel: #11151c;
+    --panel-border: #1f2733;
+    --field: #161b23;
+    --field-border: #232a36;
+    --accent: #4a8cff;
+    --accent-soft: rgba(74, 140, 255, 0.12);
+    --text: #f3f5f7;
+    --text-dim: #9aa3b2;
+    --text-faint: #5f6878;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  button:focus-visible,
+  .toggle-pill:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Header ---------- */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-logo-img {
+    height: 28px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+  }
+  .brand-tag {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--text-faint);
+    margin-top: 6px;
+  }
+  .topbar nav a {
+    font-size: 14px;
+    color: var(--text-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .topbar nav a:hover { color: var(--text); }
+
+  /* ---------- Layout ---------- */
+  .container {
+    display: flex;
+    gap: 60px;
+    padding: 64px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+
+  .left {
+    flex: 1.1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+  }
+  .left-content { flex: 1; }
+  .right { flex: 1; min-width: 0; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-size: 56px;
+    line-height: 1.08;
+    font-weight: 800;
+    margin: 0 0 24px;
+    letter-spacing: -1px;
+  }
+  h1 .accent { color: var(--accent); }
+
+  .tagline {
+    color: var(--text-dim);
+    font-size: 17px;
+    max-width: 540px;
+    margin-bottom: 44px;
+  }
+
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+  .feature {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .feature-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .feature h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .feature p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  /* ---------- Left-bottom premium actions ---------- */
+  .left-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--panel-border);
+  }
+  .btn-premium {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 24px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn-premium:hover { text-decoration: none; transform: translateY(-2px); }
+
+  .btn-premium--primary {
+    background: linear-gradient(135deg, #5b9dff, #3a6fd9);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(74, 140, 255, 0.35);
+  }
+  .btn-premium--primary:hover {
+    box-shadow: 0 12px 32px rgba(74, 140, 255, 0.5);
+  }
+  .btn-premium--primary .arrow { transition: transform 0.15s ease; }
+  .btn-premium--primary:hover .arrow { transform: translateX(3px); }
+
+  .btn-premium--ghost {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--field-border);
+  }
+  .btn-premium--ghost:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  /* ---------- Form panel ---------- */
+  .form-panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  }
+  .form-panel h2 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 800;
+  }
+  .form-panel .sub {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+
+  .field { margin-bottom: 22px; }
+  .field label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .field label .ico { font-size: 14px; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--field);
+    border: 1px solid var(--field-border);
+    color: var(--text);
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+  }
+  input::placeholder { color: var(--text-faint); }
+  input:focus, select:focus {
+    border-color: var(--accent);
+  }
+  input:disabled {
+    background: #0d1015;
+    color: var(--text-faint);
+    border-color: #1a1f29;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  input:disabled::placeholder { color: var(--text-faint); }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* Posts-per-week pill selector */
+  .pill-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .pill-group input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .toggle-pill {
+    display: block;
+    text-align: center;
+    padding: 14px 8px;
+    background: var(--field);
+    border: 1px solid var(--field-border);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dim);
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .toggle-pill span { color: var(--text-faint); font-weight: 400; }
+  input[type="radio"]:checked + .toggle-pill {
+    border-color: var(--accent);
+    color: var(--text);
+    background: var(--accent-soft);
+  }
+  input[type="radio"]:checked + .toggle-pill span { color: var(--text-dim); }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 0 28px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+  .checkbox-row input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .checkbox-row label { cursor: pointer; }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 16px;
+    background: var(--accent);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+  }
+  button[type="submit"]:hover { background: #3a6fd9; }
+  button[type="submit"]:active { transform: scale(0.99); }
+  button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .error-text {
+    color: #ff8080;
+    font-size: 12px;
+    margin-top: 6px;
+    display: none;
+  }
+  .field.invalid input { border-color: #ff8080; }
+  .field.invalid .error-text { display: block; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px) {
+    .container { flex-direction: column; padding: 40px 24px; gap: 40px; }
+    h1 { font-size: 42px; }
+    .topbar { padding: 18px 24px; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 34px; }
+    .row-2, .pill-group { grid-template-columns: 1fr; }
+    .form-panel { padding: 28px 22px; }
+    .topbar nav a span.full-text { display: none; }
+    .left-actions { flex-direction: column; }
+    .btn-premium { width: 100%; justify-content: center; }
+  }
+  .info-text {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div>
+      <img src="logo.jpeg" alt="Atrix" class="brand-logo-img">
+      <div class="brand-tag">TURNING ATTENTION INTO GROWTH</div>
+    </div>
+  </div>
+  <nav>
+    <a href="about.html"><span class="full-text">About Atrix</span> →</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- LEFT SIDE -->
+  <div class="left">
+    <div class="left-content">
+      <span class="badge">✦ Social media that performs</span>
+      <h1>Turning attention into <span class="accent">growth.</span></h1>
+      <p class="tagline">
+        Atrix builds social media systems that put your business in front of the right people —
+        with content, cadence and strategy crafted around how your audience actually buys.
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">📈</div>
+          <div>
+            <h3>Growth-led content</h3>
+            <p>Posts engineered to convert, not just to look good.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <div>
+            <h3>Audience precision</h3>
+            <p>We meet your customers where their attention already lives.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📅</div>
+          <div>
+            <h3>Consistent cadence</h3>
+            <p>1, 3 or 4 posts a week — planned, designed, scheduled.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="left-actions">
+      <p class="info-text">
+        Explore more about Atrix
+      </p>
+
+      <a href="about.html" class="btn-premium btn-premium--primary">
+        Click here <span class="arrow">→</span>
+      </a>
+        </div>
+      </div>
+
+  <!-- RIGHT SIDE FORM -->
+  <div class="right">
+    <div class="form-panel">
+      <h2>Tell us about your business</h2>
+      <p class="sub">We'll review your details and reach out within 2 working days.</p>
+
+      <form id="atrixForm" novalidate>
+
+        <div class="field" data-field="business">
+          <label for="business"><span class="ico">🏢</span> Business Name</label>
+          <input type="text" id="business" name="business" placeholder="e.g. Northwind Cafe" required>
+          <div class="error-text">Please enter your business name.</div>
+        </div>
+
+        <div class="field" data-field="email">
+          <label for="email"><span class="ico">✉️</span> Business Email</label>
+          <input type="email" id="email" name="email" placeholder="hello@yourbusiness.com" required>
+          <div class="error-text">Please enter a valid email address.</div>
+        </div>
+
+        <div class="field" data-field="phone">
+          <label for="phone"><span class="ico">📞</span> Contact Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+1 555 123 4567"
+                 pattern="^\+?[0-9\s\-]{7,15}$" required>
+          <div class="error-text">Please enter a valid phone number.</div>
+        </div>
+
+        <div class="field">
+          <label id="postsLabel"><span class="ico">📆</span> Posts Required per Week</label>
+          <div class="pill-group" role="radiogroup" aria-labelledby="postsLabel">
+            <input type="radio" id="posts1" name="posts" value="1">
+            <label class="toggle-pill" for="posts1">1 <span>/ week</span></label>
+
+            <input type="radio" id="posts3" name="posts" value="3" checked>
+            <label class="toggle-pill" for="posts3">3 <span>/ week</span></label>
+
+            <input type="radio" id="posts4" name="posts" value="4">
+            <label class="toggle-pill" for="posts4">4 <span>/ week</span></label>
+          </div>
+        </div>
+
+        <div class="field" data-field="location" id="locationField">
+          <label><span class="ico">📍</span> Location</label>
+          <div class="row-2">
+            <input type="text" id="city" name="city" placeholder="City">
+            <input type="text" id="country" name="country" placeholder="Country">
+          </div>
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="online" name="online">
+          <label for="online">🌐 My business is online, no physical presence</label>
+        </div>
+
+        <button type="submit">Start Growth →</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const form = document.getElementById('atrixForm');
+  const cityInput = document.getElementById('city');
+  const onlineCheckbox = document.getElementById('online');
+
+  // Disable city field when "online, no physical presence" is checked
+  onlineCheckbox.addEventListener('change', () => {
+    cityInput.disabled = onlineCheckbox.checked;
+    if (onlineCheckbox.checked) {
+      cityInput.value = '';
+      cityInput.placeholder = 'Not applicable';
+    } else {
+      cityInput.placeholder = 'City';
+    }
+  });
+
+  function showError(fieldEl, show) {
+    fieldEl.classList.toggle('invalid', show);
+  }
+
+  function validate() {
+    let valid = true;
+
+    const business = document.getElementById('business');
+    const businessField = business.closest('.field');
+    if (!business.value.trim()) {
+      showError(businessField, true);
+      valid = false;
+    } else {
+      showError(businessField, false);
+    }
+
+    const email = document.getElementById('email');
+    const emailField = email.closest('.field');
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    if (!emailOk) {
+      showError(emailField, true);
+      valid = false;
+    } else {
+      showError(emailField, false);
+    }
+
+    const phone = document.getElementById('phone');
+    const phoneField = phone.closest('.field');
+    const phoneOk = /^\+?[0-9\s\-]{7,15}$/.test(phone.value.trim());
+    if (!phoneOk) {
+      showError(phoneField, true);
+      valid = false;
+    } else {
+      showError(phoneField, false);
+    }
+
+    return valid;
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    if (!validate()) return;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    const data = {
+      business: document.getElementById('business').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      posts: form.querySelector('input[name="posts"]:checked').value,
+      city: cityInput.disabled ? '' : cityInput.value.trim(),
+      country: document.getElementById('country').value.trim(),
+      onlineOnly: onlineCheckbox.checked
+    };
+
+    // TODO: replace this block with a real submission call, e.g.:
+    // fetch('https://your-backend.com/api/leads', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(data)
+    // })
+    //   .then(res => { if (!res.ok) throw new Error('Request failed'); window.location.href = 'atrixwelcome.html'; })
+    //   .catch(() => { alert('Something went wrong. Please try again.'); submitBtn.disabled = false; submitBtn.textContent = 'Start Growth →'; });
+
+    console.log('Form data ready to send:', data);
+
+    // Temporary: simulate success and redirect
+    setTimeout(() => {
+      window.location.href = 'atrixwelcome.html';
+    }, 600);
+  });
+})();
+</script>
+
+</body>
+</html>

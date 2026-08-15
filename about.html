@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atryx Media — Social Media Management, Engineered</title>
 <meta name="description" content="Atryx Media plans, posts, and reports on your social presence so every channel compounds instead of resetting every week.">
-<link rel="icon" href="logo.png" type="image/png">
+<link rel="icon" href="a.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tomorrow:wght@400;500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -131,9 +131,17 @@
     border-bottom:1px solid transparent;
   }
   header.scrolled{
-    padding:14px 0;background:rgba(7,7,10,0.85);
-    backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+    padding:14px 0;border-bottom:1px solid var(--line);
   }
+  /* Blur lives on a pseudo-element, not on header itself — a filter/backdrop-filter
+     on header would make header the containing block for its position:fixed
+     mobile-menu child, breaking the fullscreen overlay once the page is scrolled. */
+  header::before{
+    content:'';position:absolute;inset:0;z-index:-1;
+    background:rgba(7,7,10,0.85);backdrop-filter:blur(14px);
+    opacity:0;transition:opacity .3s ease;
+  }
+  header.scrolled::before{opacity:1;}
   nav{display:flex;align-items:center;justify-content:space-between;}
   .logo-mark{display:flex;align-items:center;gap:10px;}
   .logo-mark img{height:38px;width:auto;object-fit:contain;}
@@ -471,6 +479,50 @@
   .contact-cta-wrap p{color:var(--ink-dim);font-size:1.05rem;max-width:480px;margin:0 auto 36px;}
   .btn-lg{--cut-sz:var(--cut-md);font-size:1rem;padding:1.1rem 2.4rem;letter-spacing:0.08em;}
 
+  /* ---- Contact section logo mark: spinning ring + gentle float ---- */
+  .contact-logo-wrap{
+    width:84px;height:84px;
+    margin:0 auto 28px;
+    position:relative;
+    animation:logo-float 3.6s ease-in-out infinite;
+  }
+  .contact-logo-wrap::before{
+    content:'';
+    position:absolute;inset:0;
+    border-radius:50%;
+    background:conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      var(--accent-1) 90deg,
+      var(--accent-2) 180deg,
+      transparent 270deg,
+      transparent 360deg
+    );
+    animation:border-spin 4s linear infinite;
+    z-index:0;
+  }
+  .contact-logo-wrap::after{
+    content:'';
+    position:absolute;inset:3px;
+    border-radius:50%;
+    background:var(--bg);
+    z-index:1;
+  }
+  .contact-logo-wrap img{
+    position:relative;z-index:2;
+    width:100%;height:100%;
+    border-radius:50%;
+    object-fit:cover;
+  }
+  @keyframes logo-float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .contact-logo-wrap{animation:none;}
+    .contact-logo-wrap::before{animation:none;}
+  }
+
   /* ---- CTA button glowing animated border ---- */
   .btn-anim-wrap {
     display: inline-block;
@@ -529,7 +581,8 @@
     .nav-links,.nav-cta .btn-ghost{display:none;}
     .nav-toggle{display:flex;}
     header.open .nav-links{
-      display:flex;position:fixed;top:0;left:0;right:0;bottom:0;
+      display:flex;position:fixed;top:0;left:0;right:0;
+      height:100vh;height:100dvh;z-index:200;
       background:var(--bg);flex-direction:column;justify-content:center;align-items:center;gap:34px;
     }
     header.open .nav-links a{font-size:1.4rem;}
@@ -549,7 +602,7 @@
   <div class="container">
     <nav>
       <a href="#top" class="logo-mark">
-        <img src="logo.png" alt="Atryx Media logo">
+        <img src="a.png" alt="Atryx Media logo">
       </a>
       <div class="nav-links">
         <a href="#services">Services</a>
@@ -938,6 +991,9 @@
   <section class="section" id="contact">
     <div class="container">
       <div class="contact-cta-wrap reveal">
+        <div class="contact-logo-wrap">
+          <img src="a.png" alt="Atryx Media">
+        </div>
         <p class="eyebrow" style="justify-content:center;">Get in touch</p>
         <h2>Ready to fix your feed?</h2>
         <p>Share your business details and we'll reach out to you with a tailored plan — no pressure, no generic pitch.</p>
@@ -957,7 +1013,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="logo.png" alt="Atryx Media logo">
+        <img src="a.png" alt="Atryx Media logo">
         <p>Social media management, engineered. We plan, post, and report — so you don't have to.</p>
       </div>
       <div class="footer-col">
@@ -992,9 +1048,15 @@
     header.classList.toggle('scrolled', window.scrollY > 10);
   });
   const toggle = document.getElementById('nav-toggle');
-  toggle.addEventListener('click', () => { header.classList.toggle('open'); });
+  toggle.addEventListener('click', () => {
+    header.classList.toggle('open');
+    document.body.style.overflow = header.classList.contains('open') ? 'hidden' : '';
+  });
   document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => header.classList.remove('open'));
+    a.addEventListener('click', () => {
+      header.classList.remove('open');
+      document.body.style.overflow = '';
+    });
   });
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!prefersReduced && 'IntersectionObserver' in window) {

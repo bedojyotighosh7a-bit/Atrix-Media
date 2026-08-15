@@ -56,13 +56,9 @@
   .container{width:100%;max-width:var(--container);margin:0 auto;padding:0 28px;}
   .cut{clip-path:polygon(0 0, 100% 0, 100% calc(100% - var(--cut-sz,var(--cut-md))), calc(100% - var(--cut-sz,var(--cut-md))) 100%, 0 100%);}
   .eyebrow{
-    font-family:var(--font-mono);
-    font-size:0.74rem;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--accent-1);
-    display:flex;align-items:center;gap:10px;
-    margin-bottom:14px;
+    font-family:var(--font-mono);font-size:0.74rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--accent-1);
+    display:flex;align-items:center;gap:10px;margin-bottom:14px;
   }
   .eyebrow::before{content:'';width:18px;height:1px;background:var(--accent-1);display:inline-block;}
   h1,h2,h3{font-family:var(--font-display);font-weight:600;letter-spacing:-0.01em;color:var(--ink);}
@@ -70,18 +66,11 @@
   .section-head{max-width:640px;margin-bottom:64px;}
   .section-head h2{font-size:clamp(1.9rem,3.6vw,2.6rem);line-height:1.15;}
   .section-head p{color:var(--ink-dim);margin-top:16px;font-size:1.05rem;max-width:520px;}
-  .muted{color:var(--ink-dim);}
   .btn{
     --cut-sz:var(--cut-sm);
-    font-family:var(--font-display);
-    text-transform:uppercase;
-    font-size:0.82rem;
-    letter-spacing:0.06em;
-    font-weight:600;
-    padding:1rem 1.7rem;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
+    font-family:var(--font-display);text-transform:uppercase;font-size:0.82rem;
+    letter-spacing:0.06em;font-weight:600;padding:1rem 1.7rem;
+    display:inline-flex;align-items:center;gap:10px;
     transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
     white-space:nowrap;
   }
@@ -90,13 +79,48 @@
   .btn-ghost{border:1px solid var(--line-strong);color:var(--ink);}
   .btn-ghost:hover{border-color:var(--accent-1);background:rgba(90,163,224,0.08);}
   a:focus-visible,button:focus-visible{outline:2px solid var(--accent-1);outline-offset:3px;}
-
-  /* reveal animation */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease, transform .7s ease;}
   .reveal.is-visible{opacity:1;transform:translateY(0);}
-  @media (prefers-reduced-motion:reduce){
-    .reveal{opacity:1;transform:none;transition:none;}
-    html{scroll-behavior:auto;}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
+
+  /* ============ ANIMATED BORDER — CORE ============ */
+  /* Uses @property for smooth conic-gradient rotation.
+     Falls back gracefully in browsers that don't support it —
+     the element just shows a static border instead. */
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes border-spin {
+    to { --angle: 360deg; }
+  }
+
+  /* ---- Mixin pattern: .anim-border-wrap ---- */
+  /* Wrap any element in this div to give it a spinning border */
+  .anim-border-wrap {
+    position: relative;
+  }
+  .anim-border-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      var(--accent-1) 60deg,
+      var(--accent-2) 120deg,
+      transparent 180deg,
+      transparent 360deg
+    );
+    animation: border-spin 5s linear infinite;
+    z-index: 0;
+    border-radius: inherit;
+  }
+  /* Inner fill — sits on top of the spinning border, inset by 1.5px */
+  .anim-border-wrap > * {
+    position: relative;
+    z-index: 1;
   }
 
   /* ============ NAV ============ */
@@ -107,22 +131,16 @@
     border-bottom:1px solid transparent;
   }
   header.scrolled{
-    padding:14px 0;
-    background:rgba(7,7,10,0.85);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--line);
+    padding:14px 0;background:rgba(7,7,10,0.85);
+    backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
   }
   nav{display:flex;align-items:center;justify-content:space-between;}
   .logo-mark{display:flex;align-items:center;gap:10px;}
   .logo-mark img{height:38px;width:auto;object-fit:contain;}
   .nav-links{display:flex;align-items:center;gap:38px;}
   .nav-links a{
-    font-family:var(--font-display);
-    font-size:0.84rem;
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-    color:var(--ink-dim);
-    transition:color .2s ease;
+    font-family:var(--font-display);font-size:0.84rem;text-transform:uppercase;
+    letter-spacing:0.05em;color:var(--ink-dim);transition:color .2s ease;
   }
   .nav-links a:hover{color:var(--ink);}
   .nav-cta{display:flex;align-items:center;gap:22px;}
@@ -130,72 +148,66 @@
   .nav-toggle span{height:2px;background:var(--ink);width:100%;transition:transform .25s ease, opacity .25s ease;}
 
   /* ============ HERO ============ */
-  .hero{
-    padding:200px 0 110px;
-    position:relative;
-    overflow:hidden;
-  }
+  .hero{padding:200px 0 110px;position:relative;overflow:hidden;}
   .hero::before{
-    content:'';
-    position:absolute;
-    top:-10%;left:50%;
+    content:'';position:absolute;top:-10%;left:50%;
     width:900px;height:900px;
     background:radial-gradient(circle, rgba(70,144,214,0.16), transparent 60%);
-    transform:translateX(-30%);
-    pointer-events:none;
+    transform:translateX(-30%);pointer-events:none;
   }
   .hero::after{
-    content:'';
-    position:absolute;
-    top:8%;right:-6%;
+    content:'';position:absolute;top:8%;right:-6%;
     width:2px;height:140%;
     background:linear-gradient(180deg, transparent, var(--accent-1) 40%, var(--accent-2) 60%, transparent);
-    opacity:0.35;
-    transform:rotate(18deg);
-    pointer-events:none;
+    opacity:0.35;transform:rotate(18deg);pointer-events:none;
   }
   .hero-grid{
-    display:grid;
-    grid-template-columns:1.05fr 0.85fr;
-    gap:60px;
-    align-items:center;
-    position:relative;
-    z-index:1;
+    display:grid;grid-template-columns:1.05fr 0.85fr;
+    gap:60px;align-items:center;position:relative;z-index:1;
   }
-  .hero h1{
-    font-size:clamp(2.6rem,5.6vw,4.4rem);
-    line-height:1.04;
-  }
-  .accent-cut{
-    background:var(--gradient);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  .hero p.lead{
-    margin-top:24px;
-    font-size:1.15rem;
-    color:var(--ink-dim);
-    max-width:480px;
-  }
+  .hero h1{font-size:clamp(2.6rem,5.6vw,4.4rem);line-height:1.04;}
+  .accent-cut{background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero p.lead{margin-top:24px;font-size:1.15rem;color:var(--ink-dim);max-width:480px;}
   .hero-ctas{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap;}
 
+  /* ---- Signal panel animated border ---- */
+  .signal-panel-outer {
+    position: relative;
+    padding: 2px;
+    --cut-sz: var(--cut-lg);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut-sz)), calc(100% - var(--cut-sz)) 100%, 0 100%);
+  }
+  .signal-panel-outer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      var(--accent-1) 60deg,
+      var(--accent-2) 120deg,
+      transparent 180deg,
+      transparent 360deg
+    );
+    animation: border-spin 4s linear infinite;
+    z-index: 0;
+  }
+  /* Inner bg that sits behind signal-panel content */
+  .signal-panel-outer::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: var(--surface);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - calc(var(--cut-sz) - 2px)), calc(100% - calc(var(--cut-sz) - 2px)) 100%, 0 100%);
+    z-index: 1;
+  }
   .signal-panel{
-    --cut-sz:var(--cut-lg);
-    background:var(--surface);
-    border:1px solid var(--line);
+    position: relative;
+    z-index: 2;
     padding:30px;
-    position:relative;
   }
   .signal-panel .eyebrow{margin-bottom:18px;}
   .signal-chart{width:100%;height:auto;}
-  .signal-path{
-    fill:none;stroke:var(--accent-1);stroke-width:3;
-    stroke-dasharray:520;stroke-dashoffset:520;
-    animation:draw 2.2s ease forwards 0.4s;
-  }
-  @keyframes draw{to{stroke-dashoffset:0;}}
-  @media (prefers-reduced-motion:reduce){.signal-path{animation:none;stroke-dashoffset:0;}}
   .signal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;}
   .signal-stat{border-top:1px solid var(--line);padding-top:14px;}
   .signal-stat .num{font-family:var(--font-display);font-size:1.5rem;color:var(--ink);}
@@ -203,33 +215,147 @@
   .signal-note{font-size:0.72rem;color:var(--ink-faint);margin-top:18px;font-style:italic;}
 
   /* ============ PLATFORM STRIP ============ */
-  .platform-strip{
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    padding:28px 0;
-  }
-  .platform-strip .container{
-    display:flex;align-items:center;gap:28px;flex-wrap:wrap;
-    justify-content:space-between;
-  }
+  .platform-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:28px 0;}
+  .platform-strip .container{display:flex;align-items:center;gap:28px;flex-wrap:wrap;justify-content:space-between;}
   .platform-strip .label{font-family:var(--font-mono);font-size:0.78rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.1em;}
   .platform-pills{display:flex;gap:12px;flex-wrap:wrap;}
-  .pill{
-    border:1px solid var(--line-strong);
-    padding:7px 16px;
-    font-size:0.82rem;
-    color:var(--ink-dim);
-    border-radius:999px;
+
+  /* ---- Pill animated border on hover ---- */
+  .pill-wrap {
+    position: relative;
+    padding: 1px;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .pill-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      var(--accent-1) 60deg,
+      var(--accent-2) 120deg,
+      transparent 180deg,
+      transparent 360deg
+    );
+    animation: border-spin 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .pill-wrap:hover::before { opacity: 1; }
+  .pill {
+    position: relative;
+    z-index: 1;
+    display: block;
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+    border: 1px solid var(--line-strong);
+    transition: color 0.2s ease;
+  }
+  .pill-wrap:hover .pill { color: var(--ink); border-color: transparent; }
+
+  /* ============ TICKER MARQUEE ============ */
+  .ticker {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 18px 0;
+    background: var(--bg-soft);
+    position: relative;
+    /* Fade edges left and right */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 30s linear infinite;
+  }
+  .ticker:hover .ticker-track {
+    animation-play-state: paused;
+  }
+  @keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 32px;
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+  }
+  .ticker-item.accent { color: var(--accent-1); }
+  /* The small diamond separator between items */
+  .ticker-sep {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background: var(--accent-1);
+    transform: rotate(45deg);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; }
   }
 
   /* ============ SERVICES ============ */
-  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-  .service-card{
-    background:var(--bg-soft);
-    padding:38px 32px;
-    transition:background .25s ease;
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);}
+
+  /* ---- Service card animated border on hover ---- */
+  .service-card-outer {
+    position: relative;
+    padding: 1.5px;
+    background: var(--bg-soft);
+    transition: background 0.25s ease;
   }
-  .service-card:hover{background:var(--surface);}
+  .service-card-outer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      var(--accent-1) 60deg,
+      var(--accent-2) 120deg,
+      transparent 180deg,
+      transparent 360deg
+    );
+    animation: border-spin 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+  }
+  .service-card-outer:hover::before { opacity: 1; }
+  .service-card-outer::after {
+    content: '';
+    position: absolute;
+    inset: 1.5px;
+    background: var(--surface);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .service-card-outer:hover::after { opacity: 1; }
+
+  .service-card{
+    background:var(--bg-soft);padding:38px 32px;
+    transition:background .25s ease;
+    position: relative;
+    z-index: 2;
+  }
+  .service-card-outer:hover .service-card { background: transparent; }
   .service-icon{width:32px;height:32px;color:var(--accent-1);margin-bottom:20px;}
   .service-card h3{font-size:1.08rem;margin-bottom:10px;}
   .service-card p{font-size:0.93rem;color:var(--ink-dim);}
@@ -238,107 +364,140 @@
   .approach-list{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
   .approach-list::before{
     content:'';position:absolute;top:26px;left:0;right:0;height:1px;
-    background:linear-gradient(90deg, var(--accent-1), var(--accent-2), transparent);
-    z-index:0;
+    background:linear-gradient(90deg, var(--accent-1), var(--accent-2), transparent);z-index:0;
   }
   .approach-step{position:relative;padding-right:24px;z-index:1;}
   .approach-step .step-num{
-    font-family:var(--font-mono);
-    font-size:0.85rem;
-    color:var(--bg);
-    background:var(--accent-1);
-    width:52px;height:52px;
-    display:flex;align-items:center;justify-content:center;
-    margin-bottom:24px;
-    --cut-sz:12px;
+    font-family:var(--font-mono);font-size:0.85rem;color:var(--bg);
+    background:var(--accent-1);width:52px;height:52px;
+    display:flex;align-items:center;justify-content:center;margin-bottom:24px;--cut-sz:12px;
   }
   .approach-step h3{font-size:1.05rem;margin-bottom:10px;}
   .approach-step p{font-size:0.92rem;color:var(--ink-dim);}
 
   /* ============ PORTFOLIO ============ */
-  .portfolio-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
+  .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+
+  /* ---- Portfolio animated border on hover ---- */
+  .portfolio-item-outer {
+    position: relative;
+    padding: 1.5px;
+  }
+  .portfolio-item-outer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      var(--accent-1) 80deg,
+      var(--accent-2) 160deg,
+      transparent 220deg,
+      transparent 360deg
+    );
+    animation: border-spin 5s linear infinite;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut-md)), calc(100% - var(--cut-md)) 100%, 0 100%);
+  }
+  .portfolio-item-outer:hover::before { opacity: 1; }
+  .portfolio-item-outer::after {
+    content: '';
+    position: absolute;
+    inset: 1.5px;
+    background: var(--surface);
+    z-index: 1;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - calc(var(--cut-md) - 1.5px)), calc(100% - calc(var(--cut-md) - 1.5px)) 100%, 0 100%);
   }
   .portfolio-item{
     --cut-sz:var(--cut-md);
-    background:var(--surface);
-    border:1px solid var(--line);
-    overflow:hidden;
+    background:var(--surface);border:1px solid var(--line);overflow:hidden;
     transition:border-color .25s ease, transform .25s ease;
+    position:relative;z-index:2;
   }
-  .portfolio-item:hover{border-color:var(--accent-1);transform:translateY(-4px);}
-  .portfolio-video-wrap{
-    position:relative;
-    padding-bottom:56.25%;
-    height:0;
-    overflow:hidden;
-    background:var(--bg-soft);
-  }
-  .portfolio-video-wrap iframe{
-    position:absolute;
-    top:0;left:0;
-    width:100%;height:100%;
-    border:none;
-  }
+  .portfolio-item-outer:hover .portfolio-item{border-color:transparent;transform:translateY(-4px);}
+  .portfolio-video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:var(--bg-soft);}
+  .portfolio-video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
   .portfolio-meta{padding:18px 20px;}
-  .portfolio-meta .vid-num{
-    font-family:var(--font-mono);
-    font-size:0.7rem;
-    color:var(--accent-1);
-    text-transform:uppercase;
-    letter-spacing:0.1em;
-    margin-bottom:6px;
-  }
+  .portfolio-meta .vid-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-1);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;}
   .portfolio-meta h3{font-size:1rem;color:var(--ink);}
-  .portfolio-row-2{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:24px;
-    max-width:820px;
-    margin:24px auto 0;
-  }
+  .portfolio-row-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:820px;margin:24px auto 0;}
 
   /* ============ CTA BAND ============ */
+  /* Animated border always-on on CTA band */
+  .cta-band-outer {
+    position: relative;
+    padding: 2px;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut-lg)), calc(100% - var(--cut-lg)) 100%, 0 100%);
+  }
+  .cta-band-outer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      rgba(255,255,255,0.5) 50deg,
+      var(--accent-1) 100deg,
+      rgba(255,255,255,0.2) 150deg,
+      transparent 210deg,
+      transparent 360deg
+    );
+    animation: border-spin 6s linear infinite;
+    z-index: 0;
+  }
+  .cta-band-outer::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: var(--gradient);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - calc(var(--cut-lg) - 2px)), calc(100% - calc(var(--cut-lg) - 2px)) 100%, 0 100%);
+    z-index: 1;
+  }
   .cta-band{
-    --cut-sz:var(--cut-lg);
-    background:var(--gradient);
-    color:#06080d;
-    padding:64px 56px;
+    --cut-sz:var(--cut-lg);color:#06080d;padding:64px 56px;
     display:flex;align-items:center;justify-content:space-between;
-    gap:30px;flex-wrap:wrap;
+    gap:30px;flex-wrap:wrap;position:relative;z-index:2;background:transparent;
   }
   .cta-band h2{color:#06080d;font-size:clamp(1.6rem,3vw,2.2rem);max-width:560px;}
   .cta-band p{color:rgba(6,8,13,0.7);margin-top:10px;max-width:480px;}
-  .cta-band .btn-dark{
-    background:#06080d;
-    color:var(--ink);
-    border:none;
-    --cut-sz:var(--cut-sm);
-  }
+  .cta-band .btn-dark{background:#06080d;color:var(--ink);border:none;--cut-sz:var(--cut-sm);}
   .cta-band .btn-dark:hover{transform:translateY(-2px);box-shadow:0 12px 28px -10px rgba(0,0,0,0.5);}
 
-  /* ============ CONTACT — BUTTON ONLY ============ */
-  .contact-cta-wrap{
-    text-align:center;
-    padding:80px 0;
+  /* ============ CONTACT ============ */
+  .contact-cta-wrap{text-align:center;padding:80px 0;}
+  .contact-cta-wrap h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:16px;}
+  .contact-cta-wrap p{color:var(--ink-dim);font-size:1.05rem;max-width:480px;margin:0 auto 36px;}
+  .btn-lg{--cut-sz:var(--cut-md);font-size:1rem;padding:1.1rem 2.4rem;letter-spacing:0.08em;}
+
+  /* ---- CTA button glowing animated border ---- */
+  .btn-anim-wrap {
+    display: inline-block;
+    position: relative;
+    padding: 2px;
   }
-  .contact-cta-wrap h2{
-    font-size:clamp(1.8rem,3vw,2.4rem);
-    margin-bottom:16px;
+  .btn-anim-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: conic-gradient(
+      from var(--angle),
+      transparent 0deg,
+      var(--accent-1) 60deg,
+      #fff 100deg,
+      var(--accent-2) 140deg,
+      transparent 200deg,
+      transparent 360deg
+    );
+    animation: border-spin 3s linear infinite;
+    z-index: 0;
+    filter: blur(2px);
+    border-radius: 2px;
   }
-  .contact-cta-wrap p{
-    color:var(--ink-dim);
-    font-size:1.05rem;
-    max-width:480px;
-    margin:0 auto 36px;
-  }
-  .btn-lg{
-    --cut-sz:var(--cut-md);
-    font-size:1rem;
-    padding:1.1rem 2.4rem;
-    letter-spacing:0.08em;
+  .btn-anim-wrap .btn {
+    position: relative;
+    z-index: 1;
   }
 
   /* ============ FOOTER ============ */
@@ -350,16 +509,15 @@
   .footer-col a,.footer-col span{display:block;font-size:0.92rem;color:var(--ink-dim);margin-bottom:12px;}
   .footer-col a:hover{color:var(--ink);}
   .footer-bottom{
-    border-top:1px solid var(--line);
-    padding-top:28px;
+    border-top:1px solid var(--line);padding-top:28px;
     display:flex;justify-content:space-between;align-items:center;
     font-size:0.82rem;color:var(--ink-faint);flex-wrap:wrap;gap:12px;
   }
 
   /* ============ RESPONSIVE ============ */
-  @media (max-width:980px){
+  @media(max-width:980px){
     .hero-grid{grid-template-columns:1fr;}
-    .signal-panel{order:-1;}
+    .signal-panel-outer{order:-1;}
     .services-grid{grid-template-columns:repeat(2,1fr);}
     .portfolio-grid{grid-template-columns:repeat(2,1fr);}
     .portfolio-row-2{grid-template-columns:1fr 1fr;max-width:100%;}
@@ -367,7 +525,7 @@
     .approach-list::before{display:none;}
     .footer-grid{grid-template-columns:1fr 1fr;}
   }
-  @media (max-width:760px){
+  @media(max-width:760px){
     .nav-links,.nav-cta .btn-ghost{display:none;}
     .nav-toggle{display:flex;}
     header.open .nav-links{
@@ -423,17 +581,153 @@
         </div>
       </div>
 
-      <div class="signal-panel cut">
-        <p class="eyebrow">Live signal</p>
-        <svg class="signal-chart" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
-          <polyline class="signal-path" points="0,95 40,88 70,92 100,60 140,68 170,40 210,46 240,18 300,10"></polyline>
-        </svg>
-        <div class="signal-stats">
-          <div class="signal-stat"><div class="num">+184%</div><div class="label">Avg. reach growth</div></div>
-          <div class="signal-stat"><div class="num">26</div><div class="label">Posts shipped / mo</div></div>
-          <div class="signal-stat"><div class="num">&lt;2h</div><div class="label">Reply time</div></div>
+      <!-- Signal panel with always-on spinning border -->
+      <div class="signal-panel-outer">
+        <div class="signal-panel">
+          <p class="eyebrow">Live signal</p>
+
+          <svg class="signal-chart" viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
+            <defs>
+              <!-- Gradient fill under the line -->
+              <linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5aa3e0" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#5aa3e0" stop-opacity="0"/>
+              </linearGradient>
+              <!-- Glow filter for the line -->
+              <filter id="lineGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <!-- Clip to chart area -->
+              <clipPath id="chartClip">
+                <rect x="0" y="0" width="300" height="115"/>
+              </clipPath>
+            </defs>
+
+            <!-- Horizontal grid lines -->
+            <line x1="0" y1="115" x2="300" y2="115" stroke="rgba(244,244,244,0.07)" stroke-width="1"/>
+            <line x1="0" y1="86"  x2="300" y2="86"  stroke="rgba(244,244,244,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="0" y1="57"  x2="300" y2="57"  stroke="rgba(244,244,244,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="0" y1="28"  x2="300" y2="28"  stroke="rgba(244,244,244,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
+
+            <!-- Y-axis labels -->
+            <text x="-6" y="118" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="end" font-family="JetBrains Mono,monospace">0</text>
+            <text x="-6" y="89"  font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="end" font-family="JetBrains Mono,monospace">25</text>
+            <text x="-6" y="60"  font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="end" font-family="JetBrains Mono,monospace">50</text>
+            <text x="-6" y="31"  font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="end" font-family="JetBrains Mono,monospace">75</text>
+
+            <!-- X-axis month labels -->
+            <text x="0"   y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Jan</text>
+            <text x="50"  y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Feb</text>
+            <text x="100" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Mar</text>
+            <text x="150" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Apr</text>
+            <text x="200" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">May</text>
+            <text x="250" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Jun</text>
+            <text x="300" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Jul</text>
+
+            <!-- Vertical grid lines -->
+            <line x1="50"  y1="0" x2="50"  y2="115" stroke="rgba(244,244,244,0.04)" stroke-width="1"/>
+            <line x1="100" y1="0" x2="100" y2="115" stroke="rgba(244,244,244,0.04)" stroke-width="1"/>
+            <line x1="150" y1="0" x2="150" y2="115" stroke="rgba(244,244,244,0.04)" stroke-width="1"/>
+            <line x1="200" y1="0" x2="200" y2="115" stroke="rgba(244,244,244,0.04)" stroke-width="1"/>
+            <line x1="250" y1="0" x2="250" y2="115" stroke="rgba(244,244,244,0.04)" stroke-width="1"/>
+
+            <!-- Gradient fill under the line (clipped) -->
+            <g clip-path="url(#chartClip)">
+              <polygon
+                points="0,95 50,88 100,78 150,60 200,46 250,22 300,10 300,115 0,115"
+                fill="url(#fillGrad)"
+                opacity="1"
+              />
+            </g>
+
+            <!-- Main line with glow -->
+            <polyline
+              class="signal-path"
+              points="0,95 50,88 100,78 150,60 200,46 250,22 300,10"
+              filter="url(#lineGlow)"
+            />
+
+            <!-- Data points with outer pulse ring -->
+            <!-- Each group: pulse ring (animated) + solid dot + value label -->
+
+            <!-- Point 1: Jan -->
+            <circle class="point-ring" cx="0"   cy="95" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 0.0s"/>
+            <circle class="data-point"  cx="0"   cy="95" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
+            <text x="0"   y="89" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">12k</text>
+
+            <!-- Point 2: Feb -->
+            <circle class="point-ring" cx="50"  cy="88" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 0.3s"/>
+            <circle class="data-point"  cx="50"  cy="88" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
+            <text x="50"  y="82" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">18k</text>
+
+            <!-- Point 3: Mar -->
+            <circle class="point-ring" cx="100" cy="78" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 0.6s"/>
+            <circle class="data-point"  cx="100" cy="78" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
+            <text x="100" y="72" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">27k</text>
+
+            <!-- Point 4: Apr -->
+            <circle class="point-ring" cx="150" cy="60" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 0.9s"/>
+            <circle class="data-point"  cx="150" cy="60" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
+            <text x="150" y="54" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">44k</text>
+
+            <!-- Point 5: May -->
+            <circle class="point-ring" cx="200" cy="46" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 1.2s"/>
+            <circle class="data-point"  cx="200" cy="46" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
+            <text x="200" y="40" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">58k</text>
+
+            <!-- Point 6: Jun -->
+            <circle class="point-ring" cx="250" cy="22" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 1.5s"/>
+            <circle class="data-point"  cx="250" cy="22" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
+            <text x="250" y="16" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">79k</text>
+
+            <!-- Point 7: Jul — highlighted "live" point -->
+            <circle class="point-ring" cx="300" cy="10" r="7" fill="none" stroke="#5aa3e0" stroke-width="1.5" opacity="0" style="animation:pulse-ring 2s ease-out infinite 0s"/>
+            <circle cx="300" cy="10" r="5" fill="rgba(90,163,224,0.2)" stroke="#5aa3e0" stroke-width="2"/>
+            <circle cx="300" cy="10" r="2.5" fill="#5aa3e0"/>
+            <text x="287" y="8" font-size="7.5" fill="#fff" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" class="point-label">+184%</text>
+          </svg>
+
+          <!-- Pulse ring animation -->
+          <style>
+            @keyframes pulse-ring {
+              0%   { r: 3;  opacity: 0.8; }
+              100% { r: 10; opacity: 0;   }
+            }
+            .point-ring { animation-fill-mode: both; }
+            .signal-path {
+              fill: none;
+              stroke: var(--accent-1);
+              stroke-width: 2.5;
+              stroke-dasharray: 700;
+              stroke-dashoffset: 700;
+              animation: draw 2.4s ease forwards 0.4s;
+            }
+            @keyframes draw { to { stroke-dashoffset: 0; } }
+            .data-point {
+              opacity: 0;
+              animation: fade-in 0.3s ease forwards;
+              animation-delay: 2.4s;
+            }
+            .point-label {
+              opacity: 0;
+              animation: fade-in 0.3s ease forwards;
+              animation-delay: 2.5s;
+            }
+            @keyframes fade-in { to { opacity: 1; } }
+            @media (prefers-reduced-motion: reduce) {
+              .signal-path { animation: none; stroke-dashoffset: 0; }
+              .data-point, .point-label { opacity: 1; animation: none; }
+              .point-ring { animation: none; }
+            }
+          </style>
+          <div class="signal-stats">
+            <div class="signal-stat"><div class="num">+184%</div><div class="label">Avg. reach growth</div></div>
+            <div class="signal-stat"><div class="num">26</div><div class="label">Posts shipped / mo</div></div>
+            <div class="signal-stat"><div class="num">&lt;2h</div><div class="label">Reply time</div></div>
+          </div>
+          <p class="signal-note">*Sample data for illustration — ask us for verified client results.</p>
         </div>
-        <p class="signal-note">*Sample data for illustration — ask us for verified client results.</p>
       </div>
     </div>
   </section>
@@ -443,12 +737,39 @@
     <div class="container">
       <span class="label">Channels we manage</span>
       <div class="platform-pills">
-        <span class="pill">Instagram</span>
-        <span class="pill">X</span>
-        <span class="pill">LinkedIn</span>
-        <span class="pill">YouTube</span>
-        <span class="pill">Pinterest</span>
+        <div class="pill-wrap"><span class="pill">Instagram</span></div>
+        <div class="pill-wrap"><span class="pill">X</span></div>
+        <div class="pill-wrap"><span class="pill">Facebook</span></div>
+        <div class="pill-wrap"><span class="pill">YouTube</span></div>
       </div>
+    </div>
+  </div>
+
+  <!-- TICKER MARQUEE -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <!-- First copy -->
+      <span class="ticker-item accent">Atryx Media</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Content Strategy</span><span class="ticker-sep"></span>
+      <span class="ticker-item accent">Social Media Management</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Audience Growth</span><span class="ticker-sep"></span>
+      <span class="ticker-item accent">Paid Advertising</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Community Building</span><span class="ticker-sep"></span>
+      <span class="ticker-item accent">Analytics &amp; Reporting</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Brand Storytelling</span><span class="ticker-sep"></span>
+      <span class="ticker-item accent">Influencer Partnerships</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Turning Attention Into Growth</span><span class="ticker-sep"></span>
+      <!-- Exact duplicate — makes the loop seamless -->
+      <span class="ticker-item accent">Atryx Media</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Content Strategy</span><span class="ticker-sep"></span>
+      <span class="ticker-item accent">Social Media Management</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Audience Growth</span><span class="ticker-sep"></span>
+      <span class="ticker-item accent">Paid Advertising</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Community Building</span><span class="ticker-sep"></span>
+      <span class="ticker-item accent">Analytics &amp; Reporting</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Brand Storytelling</span><span class="ticker-sep"></span>
+      <span class="ticker-item accent">Influencer Partnerships</span><span class="ticker-sep"></span>
+      <span class="ticker-item">Turning Attention Into Growth</span><span class="ticker-sep"></span>
     </div>
   </div>
 
@@ -462,35 +783,47 @@
       </div>
 
       <div class="services-grid reveal">
-        <div class="service-card">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 9.5h18"/><path d="M8 3v4M16 3v4"/><circle cx="8" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg>
-          <h3>Content Strategy &amp; Planning</h3>
-          <p>Calendars, themes, and posting cadence mapped to how your audience actually scrolls.</p>
+        <div class="service-card-outer">
+          <div class="service-card">
+            <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 9.5h18"/><path d="M8 3v4M16 3v4"/><circle cx="8" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg>
+            <h3>Content Strategy &amp; Planning</h3>
+            <p>Calendars, themes, and posting cadence mapped to how your audience actually scrolls.</p>
+          </div>
         </div>
-        <div class="service-card">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="13" height="13" rx="1"/><rect x="7" y="3" width="13" height="13" rx="1"/></svg>
-          <h3>Content Creation &amp; Design</h3>
-          <p>Graphics, short-form video, and copy that sound like your brand, not a template.</p>
+        <div class="service-card-outer">
+          <div class="service-card">
+            <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="13" height="13" rx="1"/><rect x="7" y="3" width="13" height="13" rx="1"/></svg>
+            <h3>Content Creation &amp; Design</h3>
+            <p>Graphics, short-form video, and copy that sound like your brand, not a template.</p>
+          </div>
         </div>
-        <div class="service-card">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16v10H9l-4 4V5z"/><circle cx="9" cy="10" r="0.8" fill="currentColor" stroke="none"/><circle cx="13" cy="10" r="0.8" fill="currentColor" stroke="none"/><circle cx="17" cy="10" r="0.8" fill="currentColor" stroke="none"/></svg>
-          <h3>Community Management</h3>
-          <p>Comments and DMs answered promptly, in your voice, every single day.</p>
+        <div class="service-card-outer">
+          <div class="service-card">
+            <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16v10H9l-4 4V5z"/><circle cx="9" cy="10" r="0.8" fill="currentColor" stroke="none"/><circle cx="13" cy="10" r="0.8" fill="currentColor" stroke="none"/><circle cx="17" cy="10" r="0.8" fill="currentColor" stroke="none"/></svg>
+            <h3>Community Management</h3>
+            <p>Comments and DMs answered promptly, in your voice, every single day.</p>
+          </div>
         </div>
-        <div class="service-card">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8" fill="currentColor" stroke="none"/></svg>
-          <h3>Paid Social Advertising</h3>
-          <p>Ad spend tested, tracked, and reallocated toward what's actually converting.</p>
+        <div class="service-card-outer">
+          <div class="service-card">
+            <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8" fill="currentColor" stroke="none"/></svg>
+            <h3>Paid Social Advertising</h3>
+            <p>Ad spend tested, tracked, and reallocated toward what's actually converting.</p>
+          </div>
         </div>
-        <div class="service-card">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V10M11 20V4M18 20v-7"/><path d="M3 20h18"/></svg>
-          <h3>Analytics &amp; Reporting</h3>
-          <p>Plain-language monthly reports that tell you what worked and what's next.</p>
+        <div class="service-card-outer">
+          <div class="service-card">
+            <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V10M11 20V4M18 20v-7"/><path d="M3 20h18"/></svg>
+            <h3>Analytics &amp; Reporting</h3>
+            <p>Plain-language monthly reports that tell you what worked and what's next.</p>
+          </div>
         </div>
-        <div class="service-card">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/></svg>
-          <h3>Influencer &amp; Partnerships</h3>
-          <p>Creator partnerships sourced, vetted, and negotiated on your behalf.</p>
+        <div class="service-card-outer">
+          <div class="service-card">
+            <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/></svg>
+            <h3>Influencer &amp; Partnerships</h3>
+            <p>Creator partnerships sourced, vetted, and negotiated on your behalf.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -504,7 +837,6 @@
         <h2>A process built to repeat, not reinvent.</h2>
         <p>The same four moves, every month — refined by what last month's numbers told us.</p>
       </div>
-
       <div class="approach-list reveal">
         <div class="approach-step">
           <div class="step-num cut">01</div>
@@ -540,121 +872,81 @@
       </div>
 
       <div class="portfolio-grid reveal">
-        <div class="portfolio-item cut">
-          <div class="portfolio-video-wrap">
-            <!-- PASTE YOUR YOUTUBE LINK 1 HERE -->
-            <!-- Replace YOUR_VIDEO_ID_1 with the actual YouTube video ID (e.g. dQw4w9WgXcQ) -->
-            <iframe
-              src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1"
-              title="Portfolio Video 1"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="portfolio-meta">
-            <div class="vid-num">01</div>
-            <h3>Campaign Title One</h3>
+        <div class="portfolio-item-outer">
+          <div class="portfolio-item cut">
+            <div class="portfolio-video-wrap">
+              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1" title="Portfolio Video 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="portfolio-meta"><div class="vid-num">01</div><h3>Campaign Title One</h3></div>
           </div>
         </div>
-
-        <div class="portfolio-item cut">
-          <div class="portfolio-video-wrap">
-            <!-- PASTE YOUR YOUTUBE LINK 2 HERE -->
-            <iframe
-              src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2"
-              title="Portfolio Video 2"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="portfolio-meta">
-            <div class="vid-num">02</div>
-            <h3>Campaign Title Two</h3>
+        <div class="portfolio-item-outer">
+          <div class="portfolio-item cut">
+            <div class="portfolio-video-wrap">
+              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" title="Portfolio Video 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="portfolio-meta"><div class="vid-num">02</div><h3>Campaign Title Two</h3></div>
           </div>
         </div>
-
-        <div class="portfolio-item cut">
-          <div class="portfolio-video-wrap">
-            <!-- PASTE YOUR YOUTUBE LINK 3 HERE -->
-            <iframe
-              src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3"
-              title="Portfolio Video 3"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="portfolio-meta">
-            <div class="vid-num">03</div>
-            <h3>Campaign Title Three</h3>
+        <div class="portfolio-item-outer">
+          <div class="portfolio-item cut">
+            <div class="portfolio-video-wrap">
+              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" title="Portfolio Video 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="portfolio-meta"><div class="vid-num">03</div><h3>Campaign Title Three</h3></div>
           </div>
         </div>
       </div>
 
-      <!-- Bottom row: 2 videos centered -->
       <div class="portfolio-row-2 reveal">
-        <div class="portfolio-item cut">
-          <div class="portfolio-video-wrap">
-            <!-- PASTE YOUR YOUTUBE LINK 4 HERE -->
-            <iframe
-              src="https://www.youtube.com/embed/YOUR_VIDEO_ID_4"
-              title="Portfolio Video 4"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="portfolio-meta">
-            <div class="vid-num">04</div>
-            <h3>Campaign Title Four</h3>
+        <div class="portfolio-item-outer">
+          <div class="portfolio-item cut">
+            <div class="portfolio-video-wrap">
+              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_4" title="Portfolio Video 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="portfolio-meta"><div class="vid-num">04</div><h3>Campaign Title Four</h3></div>
           </div>
         </div>
-
-        <div class="portfolio-item cut">
-          <div class="portfolio-video-wrap">
-            <!-- PASTE YOUR YOUTUBE LINK 5 HERE -->
-            <iframe
-              src="https://www.youtube.com/embed/YOUR_VIDEO_ID_5"
-              title="Portfolio Video 5"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-          <div class="portfolio-meta">
-            <div class="vid-num">05</div>
-            <h3>Campaign Title Five</h3>
+        <div class="portfolio-item-outer">
+          <div class="portfolio-item cut">
+            <div class="portfolio-video-wrap">
+              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_5" title="Portfolio Video 5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <div class="portfolio-meta"><div class="vid-num">05</div><h3>Campaign Title Five</h3></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA BAND -->
+  <!-- CTA BAND — always-on animated border -->
   <section class="section" style="padding-top:0;padding-bottom:0;">
     <div class="container">
-      <div class="cta-band cut reveal">
-        <div>
-          <h2>Let's make your feed work harder.</h2>
-          <p>Tell us about your brand and we'll show you exactly what we'd change in the first 30 days.</p>
+      <div class="cta-band-outer reveal">
+        <div class="cta-band cut">
+          <div>
+            <h2>Let's make your feed work harder.</h2>
+            <p>Tell us about your brand and we'll show you exactly what we'd change in the first 30 days.</p>
+          </div>
+          <a href="index.html" class="btn btn-dark cut">Book a strategy call</a>
         </div>
-        <a href="index.html" class="btn btn-dark cut">Book a strategy call</a>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT — CTA BUTTON ONLY -->
+  <!-- CONTACT -->
   <section class="section" id="contact">
     <div class="container">
       <div class="contact-cta-wrap reveal">
         <p class="eyebrow" style="justify-content:center;">Get in touch</p>
         <h2>Ready to fix your feed?</h2>
         <p>Share your business details and we'll reach out to you with a tailored plan — no pressure, no generic pitch.</p>
-        <a href="index.html" class="btn btn-primary btn-lg cut">
-          Share Your Business Details
-        </a>
+        <!-- Glowing animated border around the CTA button -->
+        <div class="btn-anim-wrap">
+          <a href="index.html" class="btn btn-primary btn-lg cut">
+            Share Your Business Details
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -695,30 +987,20 @@
 </footer>
 
 <script>
-  // Nav scroll state
   const header = document.getElementById('site-header');
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 10);
   });
-
-  // Mobile nav toggle
   const toggle = document.getElementById('nav-toggle');
-  toggle.addEventListener('click', () => {
-    header.classList.toggle('open');
-  });
+  toggle.addEventListener('click', () => { header.classList.toggle('open'); });
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => header.classList.remove('open'));
   });
-
-  // Scroll reveal
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!prefersReduced && 'IntersectionObserver' in window) {
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          obs.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); obs.unobserve(entry.target); }
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));

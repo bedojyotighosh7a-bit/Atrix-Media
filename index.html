@@ -454,17 +454,22 @@
           <div class="error-text">Please enter a valid phone number.</div>
         </div>
 
-        <div class="field">
-          <label id="postsLabel"><span class="ico">📆</span> Posts Required per Week</label>
-          <div class="pill-group" role="radiogroup" aria-labelledby="postsLabel">
-            <input type="radio" id="posts1" name="posts" value="1">
-            <label class="toggle-pill" for="posts1">1 <span>/ week</span></label>
+                <div class="field">
+          <label id="planLabel" style="justify-content: space-between;">
+            <span style="display:flex;align-items:center;gap:8px;">
+              <span class="ico">🚀</span> Select Growth Plan
+            </span>
+            <a href="about.html#pricing" style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:0.5px;text-transform:uppercase;">View Pricing →</a>
+          </label>
+          <div class="pill-group" role="radiogroup" aria-labelledby="planLabel">
+            <input type="radio" id="plan1" name="posts" value="starter">
+            <label class="toggle-pill" for="plan1">Starter</label>
 
-            <input type="radio" id="posts3" name="posts" value="3" checked>
-            <label class="toggle-pill" for="posts3">3 <span>/ week</span></label>
+            <input type="radio" id="plan2" name="posts" value="growth" checked>
+            <label class="toggle-pill" for="plan2">Growth</label>
 
-            <input type="radio" id="posts4" name="posts" value="4">
-            <label class="toggle-pill" for="posts4">4 <span>/ week</span></label>
+            <input type="radio" id="plan3" name="posts" value="pro">
+            <label class="toggle-pill" for="plan3">Pro</label>
           </div>
         </div>
 
@@ -557,7 +562,7 @@
       business: document.getElementById('business').value.trim(),
       email: document.getElementById('email').value.trim(),
       phone: document.getElementById('phone').value.trim(),
-      posts: form.querySelector('input[name="posts"]:checked').value,
+       plan: form.querySelector('input[name="posts"]:checked').value,
       city: cityInput.disabled ? '' : cityInput.value.trim(),
       country: document.getElementById('country').value.trim(),
       onlineOnly: onlineCheckbox.checked

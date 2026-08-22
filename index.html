@@ -568,21 +568,20 @@
       onlineOnly: onlineCheckbox.checked
     };
 
-    // TODO: replace this block with a real submission call, e.g.:
-    // fetch('https://your-backend.com/api/leads', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(data)
-    // })
-    //   .then(res => { if (!res.ok) throw new Error('Request failed'); window.location.href = 'atrixwelcome.html'; })
-    //   .catch(() => { alert('Something went wrong. Please try again.'); submitBtn.disabled = false; submitBtn.textContent = 'Start Growth →'; });
-
-    console.log('Form data ready to send:', data);
-
-    // Temporary: simulate success and redirect
-    setTimeout(() => {
+    fetch('https://script.google.com/macros/s/AKfycbyViiNNZhHXwpTJDvqW75l4LObTS53LcFbfh3jQCN8xX9rORmbqtC2_toLudTXxjNsfMA/exec/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(() => {
       window.location.href = 'atrixwelcome.html';
-    }, 600);
+    })
+    .catch(() => {
+      alert('Something went wrong. Please try again.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Start Growth →';
+    });;
   });
 })();
 </script>

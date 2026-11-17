@@ -364,7 +364,10 @@
     align-items: center;
 }
 </style>
-</head>
+<link rel="icon" href="a.png"><style>
+/* Small additions; original typography and layout remain unchanged. */
+input[type="radio"]:focus-visible+.toggle-pill{outline:2px solid var(--accent);outline-offset:3px}.pill-group{grid-template-columns:repeat(2,minmax(0,1fr))}.field textarea{width:100%;min-height:110px;padding:14px 16px;background:var(--field);border:1px solid var(--field-border);color:var(--text);border-radius:10px;font:inherit;resize:vertical}.field textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.trap{position:absolute;left:-9999px}.consent-row{align-items:flex-start}.consent-row input{flex-shrink:0}.status:empty{display:none}.status{padding:14px;margin-bottom:18px;border:1px solid #ff8080;color:#ffb0b0;border-radius:10px;font-size:14px}.left,.right{width:100%}@media(max-width:480px){.pill-group{grid-template-columns:1fr 1fr}.brand-logo-img{max-width:165px;height:auto}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
 <body>
 
 <header class="topbar">
@@ -396,21 +399,21 @@
           <div class="feature-icon">📈</div>
           <div>
             <h3>Growth-led content</h3>
-            <p>Posts engineered to convert, not just to look good.</p>
+            <p>Content that explains your value and makes the next step clear.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">🎯</div>
           <div>
             <h3>Audience precision</h3>
-            <p>We meet your customers where their attention already lives.</p>
+            <p>Instagram and Facebook, with Bengaluru shoots available by quote.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">📅</div>
           <div>
             <h3>Consistent cadence</h3>
-            <p>1–4 posts a week — planned, designed, scheduled.</p>
+            <p>Clear monthly deliverables, planned around your business.</p>
           </div>
         </div>
       </div>
@@ -429,28 +432,28 @@
 
   <!-- RIGHT SIDE FORM -->
   <div class="right">
-    <div class="form-panel">
+    <div class="form-panel" id="audit">
       <h2>Tell us about your business</h2>
-      <p class="sub">We'll review your details and reach out within 2 working days.</p>
+      <p class="sub">Request a free three-point audit. We aim to reply within two working days.</p>
 
-      <form id="atrixForm" novalidate>
+      <form id="atrixForm">
 
         <div class="field" data-field="business">
           <label for="business"><span class="ico">🏢</span> Business Name</label>
-          <input type="text" id="business" name="business" placeholder="e.g. Northwind Cafe" required>
+          <input type="text" id="business" name="business" maxlength="120" autocomplete="organization" placeholder="e.g. Northwind Cafe" required>
           <div class="error-text">Please enter your business name.</div>
         </div>
 
+<div class="field"><label for="contactName">Your name *</label><input type="text" id="contactName" name="contactName" maxlength="100" autocomplete="name" required></div>
         <div class="field" data-field="email">
           <label for="email"><span class="ico">✉️</span> Business Email</label>
-          <input type="email" id="email" name="email" placeholder="hello@yourbusiness.com" required>
+          <input type="email" id="email" name="email" maxlength="150" autocomplete="email" placeholder="hello@yourbusiness.com" required>
           <div class="error-text">Please enter a valid email address.</div>
         </div>
 
         <div class="field" data-field="phone">
           <label for="phone"><span class="ico">📞</span> Contact Number</label>
-          <input type="tel" id="phone" name="phone" placeholder="+1 555 123 4567"
-                 pattern="^\+?[0-9\s\-]{7,15}$" required>
+          <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" maxlength="22" required>
           <div class="error-text">Please enter a valid phone number.</div>
         </div>
 
@@ -462,129 +465,36 @@
             <a href="about.html#pricing" style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:0.5px;text-transform:uppercase;">View Pricing →</a>
           </label>
           <div class="pill-group" role="radiogroup" aria-labelledby="planLabel">
-            <input type="radio" id="plan1" name="posts" value="starter">
-            <label class="toggle-pill" for="plan1">Starter</label>
-
-            <input type="radio" id="plan2" name="posts" value="growth" checked>
-            <label class="toggle-pill" for="plan2">Growth</label>
-
-            <input type="radio" id="plan3" name="posts" value="pro">
-            <label class="toggle-pill" for="plan3">Pro</label>
-          </div>
-        </div>
-
+<input type="radio" id="plan1" name="posts" value="starter"><label class="toggle-pill" for="plan1">Essentials<br><span>₹6,499/mo</span></label>
+<input type="radio" id="plan2" name="posts" value="growth"><label class="toggle-pill" for="plan2">Managed<br><span>₹15,499/mo</span></label>
+<input type="radio" id="plan3" name="posts" value="capture"><label class="toggle-pill" for="plan3">Capture<br><span>Custom quote</span></label>
+<input type="radio" id="plan4" name="posts" value="unsure" checked><label class="toggle-pill" for="plan4">Help me choose</label>
+</div><select id="plan" name="plan" hidden aria-hidden="true"><option value="unsure">Help me choose</option><option value="starter">Essentials</option><option value="growth">Managed</option><option value="capture">Capture</option></select></div>
         <div class="field" data-field="location" id="locationField">
-          <label><span class="ico">📍</span> Location</label>
+          <label for="city"><span class="ico">📍</span> Business location *</label>
           <div class="row-2">
-            <input type="text" id="city" name="city" placeholder="City">
-            <input type="text" id="country" name="country" placeholder="Country">
+            <input type="text" id="city" name="city" placeholder="Bengaluru area" maxlength="120" required>
+            <input type="text" id="country" name="country" value="India" aria-label="Country" readonly>
           </div>
         </div>
 
-        <div class="checkbox-row">
-          <input type="checkbox" id="online" name="online">
-          <label for="online">🌐 My business is online, no physical presence</label>
-        </div>
+        <p class="sub">On-location shoots are available in Bengaluru only.</p>
 
-        <button type="submit">Start Growth →</button>
+<div class="field"><label for="profile">Instagram or website</label><input type="text" id="profile" name="profile" maxlength="300" placeholder="@yourbusiness or website URL"></div>
+<div class="field"><label for="goal">What would you like help with? *</label><textarea id="goal" name="goal" maxlength="2000" required placeholder="Tell us about your business and your main goal."></textarea></div>
+<div class="field"><label for="budget">Monthly budget (optional)</label><input type="text" id="budget" name="budget" maxlength="100" placeholder="A rough range is fine"></div>
+<div class="trap" aria-hidden="true"><label for="companyWebsite">Leave empty</label><input id="companyWebsite" name="companyWebsite" tabindex="-1" autocomplete="off"></div>
+<label class="checkbox-row consent-row"><input id="consent" name="consent" type="checkbox" required><span>I agree to be contacted about this enquiry and have read the <a href="privacy.html">privacy notice</a>. *</span></label>
+<div id="form-status" class="status" role="alert" tabindex="-1"></div><button type="submit">Request my free audit →</button>
+<p class="sub" style="margin:16px 0 0">Prefer a message? <a href="https://www.instagram.com/atrix.in/" target="_blank" rel="noopener noreferrer">Find us on Instagram ↗</a></p>
+<noscript><p>Please enable JavaScript for the form, or message us on Instagram.</p></noscript>
       </form>
     </div>
   </div>
 
 </div>
 
-<script>
-(function () {
-  const form = document.getElementById('atrixForm');
-  const cityInput = document.getElementById('city');
-  const onlineCheckbox = document.getElementById('online');
-
-  // Disable city field when "online, no physical presence" is checked
-  onlineCheckbox.addEventListener('change', () => {
-    cityInput.disabled = onlineCheckbox.checked;
-    if (onlineCheckbox.checked) {
-      cityInput.value = '';
-      cityInput.placeholder = 'Not applicable';
-    } else {
-      cityInput.placeholder = 'City';
-    }
-  });
-
-  function showError(fieldEl, show) {
-    fieldEl.classList.toggle('invalid', show);
-  }
-
-  function validate() {
-    let valid = true;
-
-    const business = document.getElementById('business');
-    const businessField = business.closest('.field');
-    if (!business.value.trim()) {
-      showError(businessField, true);
-      valid = false;
-    } else {
-      showError(businessField, false);
-    }
-
-    const email = document.getElementById('email');
-    const emailField = email.closest('.field');
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-    if (!emailOk) {
-      showError(emailField, true);
-      valid = false;
-    } else {
-      showError(emailField, false);
-    }
-
-    const phone = document.getElementById('phone');
-    const phoneField = phone.closest('.field');
-    const phoneOk = /^\+?[0-9\s\-]{7,15}$/.test(phone.value.trim());
-    if (!phoneOk) {
-      showError(phoneField, true);
-      valid = false;
-    } else {
-      showError(phoneField, false);
-    }
-
-    return valid;
-  }
-
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    if (!validate()) return;
-
-    const submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-
-    const data = {
-      business: document.getElementById('business').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      phone: document.getElementById('phone').value.trim(),
-       plan: form.querySelector('input[name="posts"]:checked').value,
-      city: cityInput.disabled ? '' : cityInput.value.trim(),
-      country: document.getElementById('country').value.trim(),
-      onlineOnly: onlineCheckbox.checked
-    };
-
-    fetch('https://script.google.com/macros/s/AKfycbyViiNNZhHXwpTJDvqW75l4LObTS53LcFbfh3jQCN8xX9rORmbqtC2_toLudTXxjNsfMA/exec/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    .then(() => {
-      window.location.href = 'atrixwelcome.html';
-    })
-    .catch(() => {
-      alert('Something went wrong. Please try again.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Start Growth →';
-    });;
-  });
-})();
-</script>
+<script src="config.js"></script><script src="form.js" defer></script>
 
 </body>
 </html>

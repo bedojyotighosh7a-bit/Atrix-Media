@@ -662,6 +662,7 @@
     .footer-grid{grid-template-columns:1fr;gap:32px;}
   }
 </style>
+<link rel="stylesheet" href="additions.css">
 </head>
 <body>
 
@@ -671,7 +672,7 @@
       <a href="#top" class="logo-mark">
         <img src="logo.png" alt="Atryx Media logo">
       </a>
-      <div class="nav-links">
+      <div class="nav-links" id="navigation-links">
         <a href="#services">Services</a>
         <a href="#approach">Approach</a>
         <a href="#pricing">Pricing</a>
@@ -679,8 +680,8 @@
         <a href="#contact">Contact</a>
       </div>
       <div class="nav-cta">
-        <a href="index.html" class="btn btn-ghost cut">Book a call</a>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <a href="index.html" class="btn btn-ghost cut">Request a call</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navigation-links">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -694,20 +695,20 @@
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <p class="eyebrow">Social Media Management</p>
+        <p class="eyebrow">Social Media Management · Bengaluru</p>
         <h1>Your feed,<br><span class="accent-cut">engineered.</span></h1>
-        <p class="lead">Atryx Media plans the content, runs the channels, and reports the numbers — so your social presence compounds instead of resetting every Monday.</p>
+        <p class="lead">We plan, create and publish content that helps people understand your business and take the next step towards an enquiry. Based in Bengaluru, with clear monthly deliverables.</p>
         <div class="hero-ctas">
-          <a href="index.html" class="btn btn-primary cut">Book a strategy call</a>
+          <a href="index.html" class="btn btn-primary cut">Request a free audit</a>
         </div>
       </div>
 
       <!-- Signal panel with always-on spinning border -->
       <div class="signal-panel-outer">
         <div class="signal-panel">
-          <p class="eyebrow">Live signal</p>
+          <p class="eyebrow">A consistent content rhythm</p>
 
-          <svg class="signal-chart" viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
+          <svg class="signal-chart" viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;" aria-hidden="true">
             <defs>
               <!-- Gradient fill under the line -->
               <linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">
@@ -732,19 +733,19 @@
             <line x1="0" y1="28"  x2="300" y2="28"  stroke="rgba(244,244,244,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
 
             <!-- Y-axis labels -->
-            <text x="-6" y="118" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="end" font-family="JetBrains Mono,monospace">0</text>
-            <text x="-6" y="89"  font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="end" font-family="JetBrains Mono,monospace">25</text>
-            <text x="-6" y="60"  font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="end" font-family="JetBrains Mono,monospace">50</text>
-            <text x="-6" y="31"  font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="end" font-family="JetBrains Mono,monospace">75</text>
+            
+            
+            
+            
 
             <!-- X-axis month labels -->
-            <text x="0"   y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Jan</text>
-            <text x="50"  y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Feb</text>
-            <text x="100" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Mar</text>
-            <text x="150" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Apr</text>
-            <text x="200" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">May</text>
-            <text x="250" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Jun</text>
-            <text x="300" y="128" font-size="7" fill="rgba(244,244,244,0.3)" text-anchor="middle" font-family="JetBrains Mono,monospace">Jul</text>
+            
+            
+            
+            
+            
+            
+            
 
             <!-- Vertical grid lines -->
             <line x1="50"  y1="0" x2="50"  y2="115" stroke="rgba(244,244,244,0.04)" stroke-width="1"/>
@@ -775,38 +776,38 @@
             <!-- Point 1: Jan -->
             <circle class="point-ring" cx="0"   cy="95" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 0.0s"/>
             <circle class="data-point"  cx="0"   cy="95" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
-            <text x="0"   y="89" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">12k</text>
+            
 
             <!-- Point 2: Feb -->
             <circle class="point-ring" cx="50"  cy="88" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 0.3s"/>
             <circle class="data-point"  cx="50"  cy="88" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
-            <text x="50"  y="82" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">18k</text>
+            
 
             <!-- Point 3: Mar -->
             <circle class="point-ring" cx="100" cy="78" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 0.6s"/>
             <circle class="data-point"  cx="100" cy="78" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
-            <text x="100" y="72" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">27k</text>
+            
 
             <!-- Point 4: Apr -->
             <circle class="point-ring" cx="150" cy="60" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 0.9s"/>
             <circle class="data-point"  cx="150" cy="60" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
-            <text x="150" y="54" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">44k</text>
+            
 
             <!-- Point 5: May -->
             <circle class="point-ring" cx="200" cy="46" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 1.2s"/>
             <circle class="data-point"  cx="200" cy="46" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
-            <text x="200" y="40" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">58k</text>
+            
 
             <!-- Point 6: Jun -->
             <circle class="point-ring" cx="250" cy="22" r="5" fill="none" stroke="#5aa3e0" stroke-width="1" opacity="0" style="animation:pulse-ring 2.5s ease-out infinite 1.5s"/>
             <circle class="data-point"  cx="250" cy="22" r="3" fill="#07070a" stroke="#5aa3e0" stroke-width="2"/>
-            <text x="250" y="16" font-size="7" fill="#5aa3e0" text-anchor="middle" font-family="JetBrains Mono,monospace" class="point-label">79k</text>
+            
 
             <!-- Point 7: Jul — highlighted "live" point -->
             <circle class="point-ring" cx="300" cy="10" r="7" fill="none" stroke="#5aa3e0" stroke-width="1.5" opacity="0" style="animation:pulse-ring 2s ease-out infinite 0s"/>
             <circle cx="300" cy="10" r="5" fill="rgba(90,163,224,0.2)" stroke="#5aa3e0" stroke-width="2"/>
             <circle cx="300" cy="10" r="2.5" fill="#5aa3e0"/>
-            <text x="287" y="8" font-size="7.5" fill="#fff" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" class="point-label">+184%</text>
+            
           </svg>
 
           <!-- Pulse ring animation -->
@@ -843,11 +844,11 @@
             }
           </style>
           <div class="signal-stats">
-            <div class="signal-stat"><div class="num">+184%</div><div class="label">Avg. reach growth</div></div>
-            <div class="signal-stat"><div class="num">26</div><div class="label">Posts shipped / mo</div></div>
-            <div class="signal-stat"><div class="num">&lt;2h</div><div class="label">Reply time</div></div>
+            <div class="signal-stat"><div class="num">8</div><div class="label">Posts / month</div></div>
+            <div class="signal-stat"><div class="num">4</div><div class="label">Reels / month</div></div>
+            <div class="signal-stat"><div class="num">12</div><div class="label">Story frames / month</div></div>
           </div>
-          <p class="signal-note">*Sample data for illustration — ask us for verified client results.</p>
+          <p class="signal-note">Managed Presence deliverables. The animated line is decorative, not a performance result or forecast.</p>
         </div>
       </div>
     </div>
@@ -856,12 +857,12 @@
   <!-- PLATFORM STRIP -->
   <div class="platform-strip">
     <div class="container">
-      <span class="label">Channels we manage</span>
+      <span class="label">Channels we focus on</span>
       <div class="platform-pills">
         <div class="pill-wrap"><span class="pill">Instagram</span></div>
-        <div class="pill-wrap"><span class="pill">X</span></div>
+        <div class="pill-wrap"><span class="pill">Bengaluru shoots</span></div>
         <div class="pill-wrap"><span class="pill">Facebook</span></div>
-        <div class="pill-wrap"><span class="pill">YouTube</span></div>
+        <div class="pill-wrap"><span class="pill">YouTube · scoped separately</span></div>
       </div>
     </div>
   </div>
@@ -900,7 +901,7 @@
       <div class="section-head reveal">
         <p class="eyebrow">What we do</p>
         <h2>Everything your feed needs, minus the chaos.</h2>
-        <p>Six moving parts, one team. We slot in wherever your social presence needs the most help.</p>
+        <p>A small creative team. Clear responsibilities. Content built around what your customers need to know.</p>
       </div>
 
       <div class="services-grid reveal">
@@ -922,14 +923,14 @@
           <div class="service-card">
             <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16v10H9l-4 4V5z"/><circle cx="9" cy="10" r="0.8" fill="currentColor" stroke="none"/><circle cx="13" cy="10" r="0.8" fill="currentColor" stroke="none"/><circle cx="17" cy="10" r="0.8" fill="currentColor" stroke="none"/></svg>
             <h3>Community Management</h3>
-            <p>Comments and DMs answered promptly, in your voice, every single day.</p>
+            <p>On managed plans: one weekday inbox check, up to 15 minutes per working day. Sales enquiries are passed to you.</p>
           </div>
         </div>
         <div class="service-card-outer">
           <div class="service-card">
             <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8" fill="currentColor" stroke="none"/></svg>
             <h3>Paid Social Advertising</h3>
-            <p>Ad spend tested, tracked, and reallocated toward what's actually converting.</p>
+            <p>Available by separate agreement, subject to scope and capacity. Advertising spend is paid directly by the client.</p>
           </div>
         </div>
         <div class="service-card-outer">
@@ -943,7 +944,7 @@
           <div class="service-card">
             <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/></svg>
             <h3>Influencer &amp; Partnerships</h3>
-            <p>Creator partnerships sourced, vetted, and negotiated on your behalf.</p>
+            <p>Creator coordination can be scoped separately. Creator fees and production expenses are agreed in advance.</p>
           </div>
         </div>
       </div>
@@ -972,7 +973,7 @@
         <div class="approach-step">
           <div class="step-num cut">03</div>
           <h3>Execution</h3>
-          <p>Content goes out on schedule. Comments get answered. Ads get optimized. Every week.</p>
+          <p>Content is prepared in batches, approved by you and published on managed plans. Extra campaigns are scoped separately.</p>
         </div>
         <div class="approach-step">
           <div class="step-num cut">04</div>
@@ -983,307 +984,11 @@
     </div>
   </section>
     <!-- PRICING -->
-  <section class="section" id="pricing">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Pricing</p>
-        <h2>Branding that brings customers.</h2>
-        <p>Done-for-you content and management for brands that want results. No long-term lock-in.</p>
-      </div>
-
-      <div class="pricing-grid reveal">
-
-  <!-- STARTER -->
-  <div class="price-card-outer">
-    <div class="price-card cut">
-
-      <div class="price-plan-name">Starter</div>
-
-      <div class="price-amount">
-        ₹6,499<span>/month</span>
-      </div>
-
-      <p class="price-desc">
-        Get your brand posting consistently, without the guesswork.
-      </p>
-
-      <div class="price-divider"></div>
-
-      <div class="price-features">
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>3 professionally designed posts/week</span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            You supply the raw content; we handle design, copy, and creative direction
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            Delivered ready-to-post — you control your own publishing
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            3 in-store content shoots/month
-            <em>(for now available only in Bengaluru and Kolkata)</em>
-          </span>
-        </div>
-
-      </div>
-
-      <div class="price-who">
-        <div class="label">Who it's for</div>
-        <p>New brands testing social.</p>
-      </div>
-
-    </div>
-  </div>
-
-
-  <!-- GROWTH (FEATURED) -->
-  <div class="price-card-outer featured">
-
-    <span class="price-badge">Most Popular</span>
-
-    <div class="price-card cut">
-
-      <div class="price-plan-name">Growth</div>
-
-      <div class="price-amount">
-        ₹15,499<span>/month</span>
-      </div>
-
-      <p class="price-desc">
-        Let us capture it, craft it, and get it in front of more people.
-      </p>
-
-      <div class="price-divider"></div>
-
-      <div class="price-features">
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            3 in-store content shoots/month
-            <em>(for now available only in Bengaluru and Kolkata)</em>
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            3 posts + 5 stories + 1 reel every week
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            Full page management — we post directly to Instagram &amp; Facebook
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            2x/month cross-promotion through our partner and brand network
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            Bring your own visuals anytime to supplement the shoot
-          </span>
-        </div>
-
-      </div>
-
-      <div class="price-who">
-        <div class="label">Who it's for</div>
-        <p>Brands ready to grow their presence.</p>
-      </div>
-
-    </div>
-  </div>
-
-
-  <!-- PRO -->
-  <div class="price-card-outer">
-    <div class="price-card cut">
-
-      <div class="price-plan-name">Pro</div>
-
-      <div class="price-amount">
-        ₹25,499<span>/month</span>
-      </div>
-
-      <p class="price-desc">
-        A full content team behind your brand, every week.
-      </p>
-
-      <div class="price-divider"></div>
-
-      <div class="price-features">
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            5 in-store shoots/month with our full production team
-            <em>(for now available only in Bengaluru and Kolkata)</em>
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            3 posts + 3 reels + 6 stories every week
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            Complete management across Instagram, Facebook &amp; YouTube Shorts
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            1 monthly signature long-form video, repurposed into short-form content across all pages
-          </span>
-        </div>
-
-        <div class="price-feature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 13l4 4L19 7"/>
-          </svg>
-          <span>
-            Priority scheduling and dedicated creative direction
-          </span>
-        </div>
-
-      </div>
-
-      <div class="price-who">
-        <div class="label">Who it's for</div>
-        <p>Brands ready to scale.</p>
-      </div>
-
-    </div>
-  </div>
-
-</div>
-
-      <div class="pricing-footnote reveal">
-        <div class="pricing-footnote-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
-          <p>No long-term lock-in.<br>Cancel anytime.</p>
-        </div>
-        <div class="pricing-footnote-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12a8 8 0 1 1-3-6.2"/><path d="M21 4v6h-6"/></svg>
-          <p>Transparent pricing.<br>No hidden costs.</p>
-        </div>
-        <div class="pricing-footnote-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 3 14h7l-1 8 11-14h-7l1-6z"/></svg>
-          <p>Fast turnarounds.<br>Built for speed.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="section" id="pricing"><div class="container"><div class="section-head"><p class="eyebrow">Monthly plans</p><h2>Clear scope.<br>A practical starting point.</h2><p>Start with a paid month. Renew monthly when the service fits your business. All content quantities below are per month.</p></div><div class="pricing-grid"><div class="price-card-outer "><article class="price-card"><h3 class="price-plan-name">Content Essentials</h3><div class="price-amount">₹6,499<span>/month</span></div><p class="price-desc">For businesses with their own assets and someone to publish.</p><div class="price-divider"></div><ul class="price-features"><li>8 static or carousel posts</li><li>Captions and a monthly content calendar</li><li>You supply images and raw content</li><li>Ready-to-post files; you handle publishing</li><li>One consolidated revision round per batch</li><li>Shoots, reels and page management not included</li></ul><a href="index.html?plan=starter#audit" class="btn btn-ghost cut">Choose Essentials</a></article></div><div class="price-card-outer featured"><span class="price-badge">Recommended start</span><article class="price-card"><h3 class="price-plan-name">Managed Presence</h3><div class="price-amount">₹15,499<span>/month</span></div><p class="price-desc">A focused content and management pilot.</p><div class="price-divider"></div><ul class="price-features"><li>8 static/carousel posts + 4 reels</li><li>12 individual story frames</li><li>Instagram publishing + Facebook cross-posting</li><li>Client-supplied footage; shoots quoted separately</li><li>Profile optimisation and enquiry tracker setup</li><li>One weekday inbox check, up to 15 minutes per working day</li><li>Monthly report + one consolidated revision round per batch</li></ul><a href="index.html?plan=growth#audit" class="btn btn-primary cut">Start a 30-day pilot</a></article></div><div class="price-card-outer "><article class="price-card"><h3 class="price-plan-name">Content + Capture</h3><div class="price-amount">Custom quote<span>/project scope</span></div><p class="price-desc">For businesses that need original content captured in Bengaluru.</p><div class="price-divider"></div><ul class="price-features"><li>A content plan built around your production needs</li><li>Bengaluru shoots with agreed hours and locations</li><li>Crew, preparation and editing priced in the proposal</li><li>Travel, parking and extra locations itemised</li><li>Monthly management available as part of the scope</li><li>Long-form video and extra platforms quoted separately</li></ul><a href="index.html?plan=capture#audit" class="btn btn-ghost cut">Request a shoot quote</a></article></div></div><div class="scope"><p><strong>What the quantities mean:</strong> carousels up to 5 slides; reels up to 45 seconds; stories counted as individual frames. Facebook cross-posting reuses the agreed content, rather than doubling the unique assets.</p><p class="fine">A working day is Monday–Friday, excluding agreed holidays. Managed Presence includes one inbox check per working day, up to 15 minutes; sales enquiries are passed to you. It does not include continuous monitoring or closing sales.</p><p class="fine">Monthly fees are paid before work begins. Advertising spend, creator fees, shoots, travel, specialist rentals and extra work are excluded unless agreed in writing. Any applicable taxes are shown in the proposal before payment.</p><p class="fine">One paid month to start; no long-term commitment. Cancel before the next service month begins. The signed agreement defines work already started, committed costs and any refund entitlement.</p></div></div></section>
   <!-- PORTFOLIO -->
-  <section class="section" id="portfolio">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">Portfolio</p>
-        <h2>Watch our work in action.</h2>
-        <p>A selection of campaigns, content series, and brand storytelling we've produced for clients across industries.</p>
-      </div>
+  <section class="section" id="portfolio"><div class="container"><div class="section-head reveal"><p class="eyebrow">Portfolio &amp; video stories</p><h2>Watch our work in action.</h2><p>Our video portfolio is in the making. Below are three upcoming content directions, followed by sample quotes and creative ideas.</p></div><div class="portfolio-grid reveal"><article class="portfolio-item-outer"><div class="portfolio-item cut"><div class="portfolio-video-wrap" data-video-slot="1"><div class="video-empty"><span class="video-play" aria-hidden="true">▶</span><strong>Video coming soon</strong><small>From setup to celebration</small></div></div><div class="portfolio-meta"><div class="vid-num">01</div><h3>From setup to celebration</h3></div><div class="video-description"><p>A wedding décor transformation: the space, the details and the finished reveal.</p><details><summary>Content idea &amp; shot list</summary><p>Hook: “Before the guests arrive, the details speak.”<br><br>Film: empty venue → setup → close-ups → full reveal.<br><br>End with: “Share your event date and venue to discuss your brief.”</p></details></div></div></article><article class="portfolio-item-outer"><div class="portfolio-item cut"><div class="portfolio-video-wrap" data-video-slot="2"><div class="video-empty"><span class="video-play" aria-hidden="true">▶</span><strong>Video coming soon</strong><small>The thinking behind the room</small></div></div><div class="portfolio-meta"><div class="vid-num">02</div><h3>The thinking behind the room</h3></div><div class="video-description"><p>An interior walkthrough explaining the decisions behind the finished space.</p><details><summary>Content idea &amp; shot list</summary><p>Hook: “A beautiful room. Decisions that make it work.”<br><br>Film: the layout → storage → materials → lighting.<br><br>End with: “What would you change about your space?”</p></details></div></div></article><article class="portfolio-item-outer"><div class="portfolio-item cut"><div class="portfolio-video-wrap" data-video-slot="3"><div class="video-empty"><span class="video-play" aria-hidden="true">▶</span><strong>Video coming soon</strong><small>A closer look at the material</small></div></div><div class="portfolio-meta"><div class="vid-num">03</div><h3>A closer look at the material</h3></div><div class="video-description"><p>A product story that helps buyers ask the right questions before ordering.</p><details><summary>Content idea &amp; shot list</summary><p>Hook: “The right material starts with the right questions.”<br><br>Film: texture → sample options → application → care information.<br><br>End with: “Tell us your intended use and quantity.”</p></details></div></div></article></div><noscript><p class="fine">Enable JavaScript to load published YouTube videos. The content ideas remain available below.</p></noscript></div></section>
 
-      <div class="portfolio-grid reveal">
-        <div class="portfolio-item-outer">
-          <div class="portfolio-item cut">
-            <div class="portfolio-video-wrap">
-              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_1" title="Portfolio Video 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="portfolio-meta"><div class="vid-num">01</div><h3>Campaign Title One</h3></div>
-          </div>
-        </div>
-        <div class="portfolio-item-outer">
-          <div class="portfolio-item cut">
-            <div class="portfolio-video-wrap">
-              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" title="Portfolio Video 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="portfolio-meta"><div class="vid-num">02</div><h3>Campaign Title Two</h3></div>
-          </div>
-        </div>
-        <div class="portfolio-item-outer">
-          <div class="portfolio-item cut">
-            <div class="portfolio-video-wrap">
-              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" title="Portfolio Video 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="portfolio-meta"><div class="vid-num">03</div><h3>Campaign Title Three</h3></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="portfolio-row-2 reveal">
-        <div class="portfolio-item-outer">
-          <div class="portfolio-item cut">
-            <div class="portfolio-video-wrap">
-              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_4" title="Portfolio Video 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="portfolio-meta"><div class="vid-num">04</div><h3>Campaign Title Four</h3></div>
-          </div>
-        </div>
-        <div class="portfolio-item-outer">
-          <div class="portfolio-item cut">
-            <div class="portfolio-video-wrap">
-              <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_5" title="Portfolio Video 5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            </div>
-            <div class="portfolio-meta"><div class="vid-num">05</div><h3>Campaign Title Five</h3></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+<section class="section" id="content-ideas" style="background:var(--bg-soft)"><div class="container"><div class="section-head"><p class="eyebrow">Content concepts</p><h2>Words with a purpose.<br>Ideas worth creating.</h2><p>Original sample directions for three business types. These are concept examples, not commissioned client campaigns or evidence of sales results.</p></div><div class="concepts"><article class="concept"><div class="concept-art wine"><span class="number">01 / WEDDINGS</span><div><h3>Before the guests arrive,<br>the details speak.</h3><p>A transformation worth showing.</p></div></div><div class="concept-body"><p class="eyebrow">Concept · Not client work</p><h3>Wedding décor · Reel concept</h3><p>A reveal sequence that shows both the finished setup and the care behind it.</p><details><summary>Read the sample brief</summary><p>Hook: “An empty venue. A detailed brief. Here’s what changed.”<br><br>Shots: empty venue → texture close-ups → team setup → wide reveal.<br><br>Caption: “Every setup starts with a space and a plan. Save this mood for your celebration.”<br><br>CTA: “Share your event date, venue and guest count to discuss a brief.”</p></details></div></article><article class="concept"><div class="concept-art stone"><span class="number">02 / INTERIORS</span><div><h3>A beautiful room.<br>Decisions that<br>make it work.</h3><p>Explain the choices behind the finish.</p></div></div><div class="concept-body"><p class="eyebrow">Concept · Not client work</p><h3>Interiors · Carousel concept</h3><p>A project story that answers practical questions before someone requests a consultation.</p><details><summary>Read the sample brief</summary><p>Slide 1: “What makes a compact room feel considered?”<br>Slide 2: “Storage planned around daily routines.”<br>Slide 3: “Materials chosen for how the room is used.”<br>Slide 4: “Lighting that works from morning to evening.”<br>Slide 5: “Planning a space? Share your layout and priorities.”</p></details></div></article><article class="concept"><div class="concept-art blue"><span class="number">03 / MATERIALS</span><div><h3>The right material<br>starts with the<br>right questions.</h3><p>Texture. Application. Specifications.</p></div></div><div class="concept-body"><p class="eyebrow">Concept · Not client work</p><h3>Fabric &amp; leather · Product concept</h3><p>Help buyers ask for the right sample instead of choosing on appearance alone.</p><details><summary>Read the sample brief</summary><p>Hook: “Before you choose a finish, tell us where it will be used.”<br><br>Sequence: close-up texture → available sample options → intended use → supplier specification check.<br><br>Caption: “Ask about composition, care, availability and minimum order before buying.”<br><br>CTA: “Send your application and quantity to request suitable samples.”</p></details></div></article></div></div></section>
   <!-- CTA BAND — always-on animated border -->
   <section class="section" style="padding-top:0;padding-bottom:0;">
     <div class="container">
@@ -1291,14 +996,15 @@
         <div class="cta-band cut">
           <div>
             <h2>Let's make your feed work harder.</h2>
-            <p>Tell us about your brand and we'll show you exactly what we'd change in the first 30 days.</p>
+            <p>Tell us about your business and we’ll start with three practical improvements to your Instagram page.</p>
           </div>
-          <a href="index.html" class="btn btn-dark cut">Book a strategy call</a>
+          <a href="index.html" class="btn btn-dark cut">Request a free audit</a>
         </div>
       </div>
     </div>
   </section>
 
+<section class="section" id="faq"><div class="container faq"><div class="section-head"><p class="eyebrow">Working together</p><h2>Before we get started.</h2></div><details><summary>Do you only work with wedding and interior businesses?</summary><p>These are useful starting points for our content approach, alongside material and product businesses. We can discuss other Bengaluru businesses when the offer, assets and scope are a good fit.</p></details><details><summary>Where are shoots available?</summary><p>Bengaluru only. We agree locations, hours, crew and access before booking. Multiple locations, travel time, transport and parking are quoted before you commit.</p></details><details><summary>Can I supply my own content?</summary><p>Yes. Essentials and Managed Presence use your images and footage. We provide a brief explaining what to capture. Extra shoots are optional and separately priced.</p></details><details><summary>What happens in the free audit?</summary><p>We review your public Instagram profile and share three practical improvements. No account password is needed. The audit is a short review, not a free content package.</p></details><details><summary>Do you guarantee customers or sales?</summary><p>No. We deliver the agreed content and management work, track enquiries where possible, and improve from the evidence. Sales also depend on your offer, pricing, audience, availability and follow-up.</p></details><details><summary>How do approvals and cancellation work?</summary><p>You nominate one approver and receive content in batches. One consolidated revision round is included per batch. Late feedback can move publication dates. You can stop the next monthly renewal; your agreement sets out treatment of completed work and committed expenses.</p></details></div></section>
   <!-- CONTACT -->
   <section class="section" id="contact">
     <div class="container">
@@ -1344,6 +1050,7 @@
       </div>
       <div class="footer-col">
         <h4>Connect</h4>
+<a href="privacy.html">Privacy notice</a>
         <a href="https://www.instagram.com/atrix.in?igsh=b2I0dGw4d3dsa2Vj" target="_blank" rel="noopener noreferrer">Instagram</a>
       </div>
     </div>
@@ -1362,14 +1069,17 @@
   const toggle = document.getElementById('nav-toggle');
   toggle.addEventListener('click', () => {
     header.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(header.classList.contains('open')));
     document.body.style.overflow = header.classList.contains('open') ? 'hidden' : '';
   });
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => {
       header.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
       document.body.style.overflow = '';
     });
   });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') { header.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!prefersReduced && 'IntersectionObserver' in window) {
     const obs = new IntersectionObserver((entries) => {
@@ -1383,5 +1093,6 @@
   }
 </script>
 
+<script src="videos.js" defer></script>
 </body>
 </html>

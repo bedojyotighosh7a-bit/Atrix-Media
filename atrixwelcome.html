@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atryx Media — We've Got Your Details</title>
-<meta name="description" content="Thank you for reaching out to Atryx Media. We'll be in touch within 2 business days.">
+<meta name="description" content="Next steps for your Atryx Media enquiry.">
 <link rel="icon" href="logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -267,7 +267,7 @@
     footer{padding:18px 22px;}
   }
 </style>
-</head>
+<style>.btn{white-space:normal;text-align:center;justify-content:center}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}</style></head>
 <body>
 
 <!-- HEADER -->
@@ -289,23 +289,23 @@
       </svg>
     </div>
 
-    <p class="eyebrow">Received</p>
+    <p class="eyebrow" id="receipt-label">Let’s get started</p>
 
-    <h1>We've got your<br><span class="accent">details.</span></h1>
+    <h1 id="receipt-title">Your next<br><span class="accent">step.</span></h1>
 
-    <p>Thank you for sharing your business information with us. Our team is already on it — you'll hear from us with a tailored plan, no generic pitch.</p>
+    <p id="receipt-copy">Tell us about your business using our enquiry form. We’ll review your details and reply with practical next steps for your business.</p>
 
     <div class="timeline-pill">
       <span class="dot"></span>
-      Expect a reply within 2 business days
+      We aim to reply within 2 working days
     </div>
 
     <div class="divider"></div>
 
     <p class="explore-label">While you wait, explore what we do</p>
 
-    <a href="about.html" class="btn btn-primary">
-      Learn more about Atryx Media <span class="arrow">→</span>
+    <a href="index.html" class="btn btn-primary" id="receipt-cta">
+      Request your free audit <span class="arrow">→</span>
     </a>
 
   </div>
@@ -317,5 +317,6 @@
   <a href="https://www.instagram.com/atrix.in?igsh=b2I0dGw4d3dsa2Vj" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
 </footer>
 
+<script src="thanks.js" defer></script>
 </body>
 </html>
